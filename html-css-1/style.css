@@ -1,0 +1,337 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+header {
+  background: #bbbbbb;
+  padding: 20px 0;
+}
+
+.menu-box {
+  width: 940px;
+  position: relative;
+  margin: 0 auto;
+}
+
+nav {
+  position: absolute;
+  top: 110px;
+  right: 0;
+}
+
+nav li {
+  display: inline;
+  margin: 0 0 0 15px;
+}
+
+nav a {
+  text-transform: uppercase;
+  color: #000000;
+  font-weight: bold;
+  font-size: 22px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #005b8f;
+  text-decoration: underline;
+}
+
+.products {
+  width: 940px;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+
+.products li {
+  display: inline-block; /* sempre alinha os elementos pela linha de baixo, para isso foi utilizado o vertical-align: top - para serem alinhados pela linha de cima agora */
+  text-align: center;
+  width: 30%;
+  vertical-align: top;
+  margin: 0 1.5%;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+
+.products li:hover {
+  border-color: #005b8f;
+}
+
+.products li:active {
+  border-color: #01446b;
+  color: #01445b;
+}
+
+.products li:hover h2 {
+  font-size: 32px;
+}
+
+.products h2 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.product-description {
+  font-size: 18px;
+}
+
+.product-price {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+footer {
+  text-align: center;
+  background: url(/Produtos/images/bg.jpg);
+  padding: 40px 0;
+}
+
+.contact {
+  margin: 0 auto;
+  width: 940px;
+}
+
+.copyright {
+  color: #ffffff;
+  font-size: 13px;
+  margin: 20px 0;
+}
+
+form {
+  margin: 40px 0;
+}
+
+form label,
+form legend {
+  display: block;
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+.input-padrao {
+  margin: 0 0 20px;
+  padding: 10px 25px;
+  width: 30%;
+}
+
+.time {
+  margin-top: 20px;
+}
+
+.checkbox {
+  margin: 20px 0;
+}
+
+.button {
+  width: 40%;
+  padding: 15px 0;
+  background: #005b8f;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  transition: 1s all;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #01446b;
+  transform: scale(1.1);
+}
+
+table {
+  margin: 20px 0 40px;
+}
+
+thead {
+  background: #555555;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+td,
+th {
+  border: 1px solid #000000;
+  padding: 8px 15px;
+}
+
+/* css da página inicial */
+.banner {
+  width: 100%;
+}
+
+.titles {
+  text-align: center;
+  font-size: 2em;
+  margin: 0 0 1em;
+  clear: left; /*foi usado p/ retirar a interferência do float*/
+}
+
+.main {
+  padding: 3em 0;
+  background: #fefefe;
+  width: 940px;
+  margin: 0 auto;
+}
+
+.main p {
+  margin: 0 0 1em;
+}
+
+.main strong {
+  font-weight: bold;
+}
+
+.main em {
+  font-style: italic;
+}
+
+.utensils {
+  width: 120px;
+  float: left;
+  margin: 0 20px 20px 0;
+}
+
+.map {
+  padding: 3em 0;
+  background: linear-gradient(#fefefe, #888888);
+}
+
+.content-map {
+  width: 940px;
+  margin: 0 auto;
+}
+
+.map p {
+  margin: 0 0 2em;
+  text-align: center;
+}
+
+.benefits {
+  padding: 3em 0;
+  background: #888888;
+}
+
+.content-benefits {
+  width: 640px;
+  margin: 0 auto;
+}
+
+.list-benefits {
+  width: 40%;
+  display: inline-block;
+  vertical-align: top; /*alinha c/ a imagem pela parte de cima*/
+}
+
+.items {
+  line-height: 1.5;
+}
+
+.items:first-child {
+  font-weight: bold;
+}
+
+.items::before {
+  content: "★";
+}
+
+.img-benefits {
+  width: 60%;
+  opacity: 1; /* vai de 0 a 1, sendo 1 sem opaciadade e 0 opacidade total*/
+  transition: 200ms;
+  box-shadow: 10px 10px 10px 0 #000000;
+}
+
+.img-benefits:hover {
+  opacity: 0.9;
+}
+
+.video {
+  width: 560px;
+  margin: 2em auto;
+}
+
+/*Media queries*/
+@media screen and (max-width: 480px) {
+  .menu-box, .main, .content-benefits, .content-map, .video, .contact {
+    width: auto;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  nav {
+    position: static;
+  }
+
+  .list-benefits, .img-benefits {
+    width: 100%;
+  }
+
+  .contact {
+    margin: 0 1em;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Supondo que quero aplicar um estilo em todos os <p>, com exceção do que tem a id="mission", ficaria assim:
+  .main p:not(#mission) {
+    background: blue;
+  } */
+
+/*-----------------------------*/
+
+  /* <h2>
+    <section>
+      <h2>
+      <p>
+      <p>
+      <h2>
+
+      - para selecionar o último h2, ficaria assim:
+        section > p + h2 
+  */
+
+  /*---------------------------*/
+
+  /* para opacidade de cor, usa-se o rgba (red, green, blue - a de alfa) 
+  - campos de rgb aceitam valores de 0 a 255, sendo 0 ausência de cor e 255 o máximo da cor
+  - rgba(0, 0, 0, 0.3) - aqui teria uma cor preta com opacidade de 0.3 - ficando meio cinza*/
+ 
+   /*---------------------------*/
+   
+   /* box-shadow: valor eixo X (horizontal), valor eixo Y (vertical), blur, espalhamento da sombra e #cor*/
+   /*    box-shadow: inset..... = permite fazer uma sombra interna ao elemento |
+   /* text-shadow: mesmas propriedades do box-shadow*/
