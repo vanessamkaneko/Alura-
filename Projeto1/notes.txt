@@ -1,0 +1,121 @@
+Recapitulando: quando passamos como parâmetro de um método/função os tipos primitivos (strings, booleanos, inteiros e assim por diante), também chamados de tipos de valor, estamos na verdade copiando aquela informação para utilizá-la (pois passamos para uma variável, onde ficam guardadas); já com tipos de referência, como objetos de classes, estamos trabalhando com a informação direta, e todas as alterações serão refletidas no objeto original.
+
+- Um tipo primitivo é simplesmente um valor em sua forma mais simples de representação. Eles também são imutáveis, uma vez declarados seu valor nunca muda.
+
+- Qualquer outro tipo que encontramos em nossas aplicações, como Objetos, Arrays, etc... não são tipos primitivos e por isso o JS trata eles de forma diferente. Variáveis que não são primitivas são mutáveis por natureza e podem conter uma estrutura de dados grande e complexa o que tornaria a operação de cópia desses valores ineficiente.
+
+"Mas se ele não copia, como ele faz?"
+
+Quando criamos um objeto dentro do JS ele reserva um espaço de memória no local que chamamos de Heap, ao fazer isso o que ele guarda na variável que criamos não é o valor do Objeto que criamos e sim o endereço de memória onde os valores estão salvos.
+
+Dessa forma ao passarmos uma variável que "guarda" um objeto para um método dentro do JS o que estamos passando é apenas o endereço de memória que aquela função deve usar para acessar os valores do objeto. Isso torna a operação muito mais eficiente mas causa um problema. Qualquer alteração feita naquele endereço de memória afeta todas as variáveis que referenciam ele.
+
+Como essas variáveis apenas guardam um endereço para o espaço de memória falamos que elas guardam uma referência para onde aquele objeto está guardado e por isso falamos que são um "tipo de referência" enquanto que os primitivos são "um tipo de valor".
+
+exemplo:
+
+transferir (valor, conta) {
+conta.cidade = "São Paulo"; - assim qualquer conta chamada agora teria incluso a cidade, além do nome, cpf, agência e saldo - isto altera o objeto original!
+const valorSacado = this.sacar(valor);
+conta.depositar(valorSacado);
+valor = 20
+}
+
+- no caso se no index estivesse declarado um let valor = 200, mesmo que fosse colocado no exemplo acima um valor = 20, não mudaria os 200, pois o mesmo está guardado na variável let valor.
+
+--------------------------------------------
+## Setters e Getters
+
+- Nada garante que durante a execução do nosso sistema, ou conforme ele é desenvolvido em parceria com outras pessoas, um valor inadequado seja passado para nosso atributo cliente, como um valor 0. Para evitar isso, usamos o set: como queremos proteger nosso atributo privado, podemos incluir uma condicional definindo que a atribuição de novoValor só será feita se ele for uma instância de cliente, algo que conseguimos verificar usando o operador instanceof, de modo a protegermos nosso atributo, fazendo com que somente o tipo esperado (Cliente) fosse aceito. BASICAMENTE, o set define regras de atribuição/atualização de valores dentro de uma class.
+
+- Get é para pegar valores dentro de uma class.
+
+- Os assessores são muito poderosos, pois nos concedem acesso a propriedades privadas ao mesmo tempo em que nos permitem definir uma regra de proteção dentro deles. Já se for necessário pegar o valor de _cliente, precisaremos de um novo assessor, dessa vez do tipo get. Ele também será semelhante a um método, mas nesse caso simplesmente retornaremos o valor de this._cliente. 
+
+- No caso do _saldo, se tentarmos fazer uma atribuição direta (ex: conta2.saldo = 3000), receberemos um erro informando que não é possível atribuir um valor à propriedade saldo, já que ela só possui um método assessor de leitura (tipo get).
+
+--------------------------------------------
+## Atributos estáticos
+
+export class ContaCorrente {
+    agencia;
+    numeroDeContas = 0;
+    _cliente;
+
+    _saldo = 0; ... 
+    
+    ...
+
+    constructor(agencia, cliente) {
+        this.cliente = cliente;
+        this.agencia = agencia;
+        this.numeroDeContas += 1;
+    }
+    
+    console.log(conta2.numeroDeContas) - como retorno, teríamos 1. O mesmo aconteceria na impressão de contaCorrenteRicardo.numeroDeContas. Isso significa que algo está errado, já que atualmente temos duas contas no nosso sistema. Isso acontece pois *toda vez que instanciamos um objeto, os atributos da classe se tornam específicos daquele objeto*. Ou seja, não importa quantas contas correntes criarmos, todas teriam 1 como numeroDeContas.
+
+- Da mesma forma, se alterarmos o numeroDeContas da contaCorrenteRicardo, não alteraremos o da contaCorrenteAlice. No geral queremos que isso realmente aconteça, já que cada objeto é único e não deve depender dos outros - afinal, em nosso sistema estamos trabalhando com contas correntes diferentes, com titulares e saldos diferentes.
+
+- Já no caso do numeroDeContas, queremos que ele seja inerente à classe como um todo, e não das instâncias individualmente. Para isso, não poderemos declará-lo da mesma forma que os outros atributos. A ideia é trabalharmos com um atributo estático, do tipo que *reflete as alterações em todos os objetos daquela classe*. Para isso usaremos a palavra reservada static.
+
+- EXERCÍCIO DE EXEMPLO:
+
+Em seu jogo, Luan quer sempre manter o número do total de jogadores atualizado. Para isso, escreveu o código abaixo:
+
+class Jogador{
+
+    //Código omitido
+    _totalJogadores = 0;
+
+    constructor(){
+        this._totalJogadores++;
+    }
+}
+
+Porém, o contador sempre apresenta 1 após inserir um novo jogador.
+
+Qual dos motivos abaixo explica a razão desse acontecimento?
+R: O _totalJogadores deveria estar como estático, assim, sempre que fosse criado um novo objeto do tipo Jogador, não seria criado um novo total, mantendo o valor correto. A declaração correta deste campo é static _totalJogadores;
+
+-----------------------------------------
+## Early return
+
+- Essa técnica consiste em verificarmos todas as situações indesejadas primeiro. Por exemplo, no método depositar() não queríamos que o valor recebido fosse menor ou igual a zero. Caso isso aconteça, simplesmente usaremos a instrução return para pararmos a execução do código. Dessa maneira, mantemos o código onde a operação realmente é realizada no mesmo nível de indentação da condicional, e conseguimos analisar facilmente que, caso a condição indesejada seja verdadeira, sairemos da função sem executá-la. Se todas as verificações passarem corretamente, o código será executado ao final
+
+------------------------------------------
+Por padrão no JS utilizamos o "_" para indicar que um atributo é privado e não deveria ser alterado (ele não deve ser acessado de fora da classe), apenas os métodos e comportamentos dentro do escopo da classe podem acessá-lo. Embora seja possível acessá-lo fora da classe, não é uma boa prática fazer isso. Porém, atualmente no Js nenhum atributo ou método é realmente privado
+
+------------------------------------------
+
+- construtor é um método especial para criar e inicializar um objeto criado a partir de uma classe
+
+-------------------------------------------
+
+- extends: serve para a subclasse herdar as propriedades e métodos da classe mãe (no caso a classe Conta é a mãe)
+
+- O super() é utilizado para executar o construtor da classe mãe, ou seja, para popular os dados 
+
+--------------------------------------------
+
+Douglas começou a testar o que aprendeu com herança e escreveu o código abaixo:
+
+class Funcionario{
+    getBonificacao(){
+        return 100;
+    }
+}
+class Diretor extends Funcionario{
+    getBonificacao(){
+        return 200;
+    }
+}
+class DiretorTI extends Diretor{
+
+}
+
+O problema é que quando ele instanciou um DiretorTI e chamou o método GetBonificacao ele recebou o valor de 200 e não de 100 como ele esperava. Por que isso aconteceu?
+- Só acontece porque a classe DiretorTI não sobrescreveu o método getBonificacao. Sim, se ele sobrescrever esse método a classe funcionará da maneira que ele espera. Porém esse código estará sendo sobrescrito em todas as camadas da hierarquia de classes. Será que é uma boa opção?
+
+- Isso acontece porque a classe DiretorTI herda da classe Diretor e ela está sobrescrevendo o método getBonificacao da classe `Funcionário. Isso mesmo! Com a herança podemos herdar classes que herdam de outras classes. E conforme essa cadeia cresce a complexidade do código tbm cresce. Por isso é considerada uma má prática criarmos árvores de herança muito profundas.
+
+
