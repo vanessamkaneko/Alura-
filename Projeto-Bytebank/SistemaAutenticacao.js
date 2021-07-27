@@ -9,9 +9,13 @@ export class SistemaAutenticacao {
     }
     return false;
   }
-    static ehAutenticavel(autenticavel) {
-      return "autenticar" in autenticavel && 
-      autenticavel.autenticar instanceof Function
-    }
+
+  static ehAutenticavel(autenticavel) {
+    return "autenticar" in autenticavel && 
+    autenticavel.autenticar instanceof Function
+  }
 }
+
+
+
 

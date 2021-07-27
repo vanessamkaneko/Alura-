@@ -31,3 +31,4 @@ console.log(gerenteEstaLogado, diretorEstaLogado, clienteEstaLogado);
 
 
 
+

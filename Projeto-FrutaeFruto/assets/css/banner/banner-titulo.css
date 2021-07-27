@@ -1,0 +1,23 @@
+.banner__titulo {
+  color: #fdfdfd;
+  font-family: 'Pacifico', cursive;
+  position: absolute; /* absolute em relação ao pai (.banner) - p/ isso, a position do pai é relative*/
+  left: 50%;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.75);
+  top: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%); /*deixou o título em cima do banner*/
+  width: 100%; /*dispôs o titulo em uma única linha*/
+}
+
+@media screen and (min-width: 0) {
+  .banner__titulo {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .banner__titulo {
+    font-size: 5.0625rem;
+  }
+}

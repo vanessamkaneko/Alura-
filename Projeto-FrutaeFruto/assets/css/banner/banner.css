@@ -1,0 +1,4 @@
+.banner {
+  position: relative; /* p/ que a posição do título seja em relação ao banner, e não a página - sendo usado o absolute no titulo*/
+}
+
