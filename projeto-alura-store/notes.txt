@@ -1,0 +1,8 @@
+Como podemos dizer para um elemento ocupar toda as colunas e linhas, sendo que o nosso layout possui 3 colunas e 2 linhas?
+
+grid-column-start: 1;
+grid-column-end: 4;
+grid-row-start: 1;
+grid-row-end: 3;
+
+- estamos preenchendo as três colunas e duas linhas, informamos 4 para as colunas e 3 para as linhas pois ambos são exclusivos.
