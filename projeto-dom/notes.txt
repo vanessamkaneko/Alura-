@@ -1,0 +1,27 @@
+- document.getElementById(‘id’) seleciona o elemento pelo id passado.
+- document.getElementsByClassName(‘classe’) retorna um array dos elementos pelo nome da classe passada.
+- document.getElementsByTagName(‘tag’) retorna um array dos elementos pelo nome da tag passada
+- document.querySelectorAll(seletor) devolve todos os seletores com o mesmo nome
+
+--------
+evento.preventDefault() - foi usado p/ evitar o comportamento padrão de um formulário, que é enviar a informação p/ alguma lugar (não tendo o refresh da page)
+
+--------
+Todos os elementos na nossa árvore do DOM são nós e todos os nós podem ser acessados via JavaScript. Os nós podem ser deletados, criados ou modificados. Durante o curso utilizamos o método appendChild que sempre é adicionado no final do nó, para colocar um nó filho dentro do nó pai
+
+Existem outros métodos que podemos utilizar para manipular nós:
+
+- insertBefore(pai, filho): Coloca um nó antes do outro.
+- replaceChild( elemento1, elemento2): Substitui o nó elemento 1 pelo nó elemento2.
+- removeChild(elemento): Remove um nó da árvore.
+
+--------
+tarefa.classList.add('task'), botaoConcluir.classList.add('check') - foi usado p/ adicionar a class task | check-button e assim o css referente ser atribuído
+
+--------
+- nome de componentes são com letra maiúscula no início e de variáveis com letra minúscula no início
+
+--------
+Quais as estratégias que utilizamos para aumentar a manutenção e legibilidade do código da nossa aplicação toda?
+
+- Criar uma pasta para organizar os códigos, dar nomes que fazem sentido tanto para os arquivos quanto para as funções e componentes, utilizar import/export para criar comunicação entre os arquivos e garantir encapsulamento.
