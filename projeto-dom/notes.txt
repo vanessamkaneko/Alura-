@@ -25,3 +25,13 @@ tarefa.classList.add('task'), botaoConcluir.classList.add('check') - foi usado p
 Quais as estratégias que utilizamos para aumentar a manutenção e legibilidade do código da nossa aplicação toda?
 
 - Criar uma pasta para organizar os códigos, dar nomes que fazem sentido tanto para os arquivos quanto para as funções e componentes, utilizar import/export para criar comunicação entre os arquivos e garantir encapsulamento.
+
+--------
+localStorage.setItem("tarefas", JSON.stringify(tarefasAtualizadas)) - localStorage permite que as informações sejam guardadas/mantidas no navegador mesmo após a janela ter sido fechada (mas apenas em formato de string) - o jeito correto de transformar os dados em string é através do JSON.stringify e já aproveitamos para usar o setItem para armazenar os dados localmente.
+- o primeiro parâmetro (no caso tarefas) é a key - que pode ser nomeada com qualquer nome que faça sentido no contexto - e o segundo parâmetro é o value;
+
+-------
+ const tarefasAtualizadas = [...tarefas, dados] - pega tudo o que há em tarefas e também o que é recebido em dados
+
+-------
+JSON.parse - transforma string em objeto
