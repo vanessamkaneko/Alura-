@@ -35,3 +35,23 @@ localStorage.setItem("tarefas", JSON.stringify(tarefasAtualizadas)) - localStora
 
 -------
 JSON.parse - transforma string em objeto
+
+-------
+Durante o curso utilizamos o pipe || para criar uma avaliação de curto circuito.
+    const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [ ]
+
+Com isso, dizíamos à aplicação que caso o localStorage estivesse com dados ela se comportaria de um modo, se ele estivesse vazio, ele iniciaria com um array vazio. As expressões lógicas são avaliadas da esquerda pra direita, logo, se a primeira atender o caso de sucesso, o segundo caso não é aplicado, e se o primeiro for avaliado como falso, caímos no segundo caso.
+
+true || false // true
+false || true // true
+
+-------
+const tarefasCadastradas = JSON.parse(localStorage.getItem('tarefas')) || [ ]
+
+Temos o componente Tarefa(), que possui um template de como os dados serão exibidos, e uma variável lista, que possui o elemento onde serão exibidos os dados, agora falta pegar os dados do localStorage na tela. Como podemos resolver essa tarefa?
+
+    tarefasCadastradas.forEach((tarefa) => {
+            lista.appendChild(Tarefa(tarefa))
+    })
+
+    O LocalStorage se comporta como um array, logo, podemos usar métodos de array como o forEach para iterar sobre os itens. Depois, cada item é passado para o componente Tarefa, que vai ser inserido dentro do elemento pai representado por lista.
