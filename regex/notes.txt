@@ -1,0 +1,311 @@
+- O que é uma Expressão Regular?
+Uma expressão regular, ou Regex, é uma linguagem para encontrar padrões de texto ou cadeias de caracteres em uma string. 
+
+-----------------------------------------------------------------------------------------------------
+Alvo (target) e Pattern (regex) -> Regex Engine (é um software para interpretar e aplicar a regex - Java, JavaScript, C#, PHP, C, Python) -> Resultado (match)
+
+-----------------------------------------------------------------------------------------------------
+Existem alguns caracteres que possuem um significado especial para o regex engine. Especial significa que o regex engine não interpreta o valor literal e sim diferente. Esses caracteres são chamados de meta caracteres.
+
+Nessa aula já vimos alguns:
+
+. o "ponto" que significa qualquer char
+* o asterisco que serve para definir uma quantidade de chars, ZERO ou MAIS VEZES
+{2} as chaves que servem para definir uma quantidade de caracteres específicas que é desejado encontrar
+
+Por exemplo:
+
+a{3} letra a 3 vezes.
+\d* um digito zero ou mais vezes (o d representa dígito)
+
+- Lembrando também, se quisermos procurar pelo * ou . literalmente (sem significado especial, ou seja, . significa . e * significa *), devemos utilizar o caractere \ 
+
+- Os parênteses são meta-chars e precisam ser utilizados para capturar o valor literal: \( e \)
+
+-----------------------------------------------------------------------------------------------------
+Defina a expressão regular para encontrar um CNPJ, por exemplo: 15.123.321/8883-22
+  \d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}
+
+-----------------------------------------------------------------------------------------------------
+Abaixo há alguns exemplos de IP:
+
+126.1.112.34
+
+128.126.12.244
+
+192.168.0.34
+
+Cada grupo pode ter de um a três algarismos. Considerando somente essa regra, como podemos encontrar o padrão desses números?
+  \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - Um IP tem quatro grupos de no mínimo um e máximo três números. Repare que estamos escapando o ponto (.) entre os números, que são blocos de dígitos \d entre 1 e 3 caracteres {1,3}
+
+-----------------------------------------------------------------------------------------------------
+A) Extraindo seções específicas de um arquivo de texto
+B) Validação de formatação de, por exemplo, e-mail ou telefone
+C) Análise de arquivos de texto e extração de dados para, por exemplo, gravar no banco de dados
+D) Substituindo os valores de um texto para limpar, reformatar ou alterar o conteúdo
+
+Todas as alternativas estão corretas e representam exemplos clássicos para utilizar expressões regulares.
+
+No entanto, é importante lembrar que uma expressão regular faz a análise de um determinado padrão de caracteres em uma string. Podemos usar esse padrão para por exemplo validar um email ou telefone. Para saber se o email realmente existe e validar a autenticidade do email uma regex NÃO serve.
+
+-----------------------------------------------------------------------------------------------------
+CPF: 987.654.321.00 | 987.654.321-00 e 11122233300. A regex que identifica ambos os CPFs está abaixo:
+
+  \d{3}[.-]?\d{3}[.-]?\d{3}[.-]?\d{2}
+
+
+Repare que na décima segunda posição do CPF pode vir um ponto OU hífen, que podemos declarar com a classe: [.-]. Perceba também que não escapamos o ponto (.), pois dentro dos colchetes o ponto já possui o seu valor literal. Importante também é que a ordem não importa, [.-] e [-.] são a mesma coisa.
+
+Caracteres opcionais
+A quantidade de vezes que essa classe de caracteres deve aparecer é definida por um quantifier, por exemplo, como já vimos:
+
+[.-]* - ponto ou hífen zero, uma ou mais vezes.
+
+[.-]{1} - ponto ou hífen uma vez.
+
+No nosso caso [.-] é opcional, pode ter ou não ter, mas uma vez apenas. Dentro da regex, isso é declarado através do meta-char ponto de interrogação (?). O ponto de interrogação (?), que significa ZERO ou UMA VEZ, é mais um quantifier.
+
+Assim podemos combinar a classe [.-] com o quantifier ?:
+
+[.-]? ponto ou hífen zero ou uma vez.
+
+-----------------------------------------------------------------------------------------------------
+Qual é a classe correta para definir os números entre 1 e 3 E 6 e 9?
+  [1-36-9]
+
+-----------------------------------------------------------------------------------------------------
++ significa UM ou MAIS VEZES
+s indica espaço  
+
+-----------------------------------------------------------------------------------------------------
+Para encontrar datas, como 21 de Fevereiro de 2021:
+
+  [0123]?\d\s+de\s+[A-Z][a-zç]{1,8}\s+de\s+[12]\d{3}
+
+[0123]? - 0, 1, 2 ou 3 aparece 0 ou 1 vez
+
+Como poderíamos deixar a expressão mais fácil de entender?
+
+Uma forma fácil de melhorar a legibilidade seria usar algumas variáveis auxiliares, que deixam claro o que estamos definindo, por exemplo no JavaScript podemos criar 4 variáveis:
+  var DIA  = "[0123]?\d"; 
+  var _DE_ = "\s+de\s+";
+  var MES  = "[A-Za-z][a-zç]{1,8}";
+  var ANO  = "[12]\d{3}";
+
+Repare que cada variável representa uma parte da regex. Depois disso é só concatenar essas variáveis para ter a expressão final:
+  var stringRegex = DIA + _DE_ +  MES + _DE_ + ANO;
+
+Essa string passamos para a regex engine do JavaScript:
+
+  var objetoRegex  = new RegExp(stringRegex, 'g');
+
+
+-----------------------------------------------------------------------------------------------------
+19h32min16s pode ser representado por:
+  \d{2}h\d{2}min\d{2}s
+  \[0-9]{2}h\[0-9]{2}min\[0-9]{2}s
+  [0-9]{2}h[0-9]{2}min[0-9]{2}s
+
+-----------------------------------------------------------------------------------------------------
+KMG-8089:
+  [A-Z]{3}-\d{4}
+  [A-Z]{3}-[0-9]{4}
+
+-----------------------------------------------------------------------------------------------------
+Ajude Gilberto e, claro, seus alunos, separando do arquivo CSV os nomes e as notas dos alunos que tiraram de 7.2 a 7.9 para que o professor "camarada" possa aprová-los!
+
+9.8 - Robson, 7.1 - Teresa, 4.5 - Armênio, 6.5 - Zulu, 7.7 - Stefania, 7.8 - João, 5.0 - Romeu, 7.2 - Pompilho, 3.1 - Reinaldo, 7.3 - Bernadete, 4.7 - Cinério 
+
+  7.[2-9]\s+-\s+[A-Z][a-zã]+
+
+-----------------------------------------------------------------------------------------------------
+Escreva uma expressão regular que faça match apenas com as palavras GARROTE, SERROTE e ROTEIRO. 
+  [A-Z]*ROT[A-Z]+
+
+  Veja que usamos a classe de caracteres [A-Z] porque queremos lidar apenas com todas as letras em maiúsculo. Além disso, na primeira parte da expressão temos [A-Z]*, usamos o quantifier * que indica zero ou mais vezes. Por fim temos [A-Z]*ROT[A-Z]+
+
+-----------------------------------------------------------------------------------------------------
+?classes+poderosas*
+  [a-z?*+]+    seleciona o alvo inteiro (um match apenas)
+  [a-z?*+]     seleciona cada caratecter correspondente (19 matches)
+
+- a grande maioria de meta-chars são valores literais na definição da classe (dentro de [], apenas os caracteres \ (barra invertida), - (hífen) e ^ (circunflexo) realmente são meta-chars dentro de uma classe
+
+-----------------------------------------------------------------------------------------------------
+O username precisa ser da seguinte forma:
+
+- O limite é de 10 caracteres;
+- O primeiro caractere deve ser uma letra do alfabeto, não pode ser um número;
+- A partir do segundo caractere podemos ter letras maiúsculas, minúsculas e números;
+
+  A resposta é: [a-zA-Z][a-zA-Z0-9]{0,9}
+
+-----------------------------------------------------------------------------------------------------
+Uma âncora não casa caracteres como as classes fazem, e nem definem quantidades. Âncoras marcam uma posição específica no alvo, por isso não é possível combiná-las com um quantifier.
+
+Existem várias âncoras predefinidas, mas as mais comuns são ^, $ e \b. Lembrando também que os caracteres ^ e $ são meta-chars.
+
+-----------------------------------------------------------------------------------------------------
+Sabendo que o erro sempre começa com a expressão Caused by:, faça uma regex que capture-o.
+  ^Caused by:.*
+
+-----------------------------------------------------------------------------------------------------
+Alvos: Data: 02/09/1964 ou Data:02/09/1964
+  ^Data:[\s]?[0-9]{2}\/[0-9]{2}\/[0-9]{4}$
+
+-----------------------------------------------------------------------------------------------------
+Dentro do código JavaScript, o método exec devolve um array, com o match inteiro e os grupos da regex. Esses resultados é que estamos mostrando no formulário. Sabendo disso, podemos definir mais grupos para também selecionar o dia e o mês:
+  ([0123]?\d)\s+de\s+([A-Z][a-zç]{1,8})\s+de\s+([12]\d{3})
+
+  A regex com o alvo 21 de Maio de 1993 devolve, além do match inteiro, os grupos 21, Maio e 1993 (repare que os grupos são delimitados pelos parênteses)
+
+Grupos opcionais
+- Através de um grupo, podemos também definir um conjunto de caracteres como opcional. Já conhecemos o quantifier que significa opcional, o ? (zero ou uma vez). Agora só falta combinar o ? com um grupo. Por exemplo, podemos deixar a preposição "de" como opcional: (de\s+)?, e aplicando isso na regex nas duas preposições:
+  ([0123]?\d)\s+(de\s+)?([A-Z][a-zç]{1,8})\s+(de\s+)?([12]\d{3})
+  Essa regex pega datas como: 21 Maio 1993, 21 Maio de 1993 e 21 de Maio de 1993
+  
+Non-capturing groups
+- Agora temos um novo problema: usamos os grupos justamente para selecionar o dia, mês e ano. Com os dois novos grupos, também recebemos as preposições "de" como resposta. Por exemplo, usando o alvo 21 de Maio de 1993, o nosso formulário devolve os grupos:
+  21 ||| de  ||| Maio ||| de  ||| 1993
+
+- Os caracteres ||| são apenas o separador dos grupos utilizado no nosso código JavaScript e não importam na avaliação. Agora, a pergunta é: como podemos usar um grupo que não é devolvido pela regex? Para tal existem os non-capturing groups!
+
+Novamente usaremos o simbolo ?, mas agora no início do grupo junto com os dois pontos, por exemplo para a preposição "de": (?:de\s+)?
+
+Aplicando isso na regex inteira, no alvo 21 de Maio de 1993:
+  ([0123]?\d)\s+(?:de\s+)?([A-Z][a-zç]{1,8})\s+(?:de\s+)?([12]\d{3})
+  Isso devolve os grupos: 21 de Maio de 1993 ||| 21 ||| Maio ||| 1993 (a preposição de, que faz parte da regex, não aparece como grupo)
+
+NOTE: muito cuidado para não confundir non-capturing groups com os quantifier. Ambos utilizam o mesmo símbolo (?), contudo possuem objetivos diferentes. Relembrando:
+
+  Non-Capturing group (?:) - (?:de\s+) (não deve devolver o grupo formado pela preposição de e por um \s);
+  Quantifier - [a-z]? (a classe deve ocorrer zero ou uma vez);
+
+-----------------------------------------------------------------------------------------------------
+Um agente secreto conseguiu capturar a seguinte mensagem criptografada:
+  Z171PZ7AZ23PZ7819AZ78GZ1AZ99IZ34O
+
+Depois de algum tempo, ele descobriu a seguinte lei de formação: cada letra da palavra recebe o prefixo Z, mas não apenas isso. A letra Z é seguida de um número com um ou mais dígitos.
+
+Com base nessa informação ultra secreta, crie uma expressão regular que consiga evidenciar a palavra secreta. 
+  Z\d+(\w)
+
+Veja que usamos Z\d+ para indicar que queremos ter a letra Z seguido de um ou mais dígitos. Depois usamos Z\d+(\w), ou seja, nossa expressão irá selecionar todos os Z seguidos de um número que é seguido de qualquer letra ou número, inclusive _. Contudo, o \w esta entre parênteses e define um grupo. Isso significa que do resultado da expressão regular faremos uma nova pesquisa procurando quem é letra, número, inclusive _ da seleção. Com isso, extrairemos apenas as letras que seguem o prefixo Z(qualquer número).
+
+Em nosso testador de expressão regular teremos:
+
+Z171P ||| P | Z7A ||| A | Z23P ||| P | Z7819A ||| A | Z78G ||| G | Z1A ||| A | Z99I ||| I | Z34O ||| O
+
+Agora vamos inverter a lógica e definir o que a regex NÃO deveria devolver, ou seja, não estamos interessados na letra Z nem no número \d.
+  [^Z\d]
+
+-----------------------------------------------------------------------------------------------------
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+- Podemos primeiramente fazer uma regex para a exceção completa:
+  Caused[\s\w:.]+:[\w\s]+
+
+  E então, basta formar dois grupos como aprendemos nesse capítulo, colocando parênteses envolvendo os grupos que queremos formar, no caso, um com a causa e outro com a descrição.
+  (Caused[\s\w:.]+):([\w\s]+)
+
+-----------------------------------------------------------------------------------------------------
+
+O email deve ter um @ e terminar com caelum.com.br ou alura.com.br. O nome do usuário (tudo antes do @) tem apenas letras minúsculas, pode ter um número no final e tem de 5 a 15 caracteres.
+
+Por exemplo:
+
+super.mario@caelum.com.br extrai super.mario
+donkey.kong@alura.com.br extrai donkey.kong
+bowser1@alura.com.br extrai bowser1
+
+Mais uma dica, para definir dentro de um grupo que queremos um OU outro usamos o caractere | (pipe).
+
+  ([a-z.]{4,14}[a-z\d])@(?:caelum.com.br|alura.com.br)
+
+Repare que o segundo grupo usa o pipe: | para selecionar email que terminam com caelum.com.br OU alura.com.br. Além disso, o grupo não é capturado (?:).
+
+-----------------------------------------------------------------------------------------------------
+Seguem alguns emails que devem ser pegos pela regex:
+  donkey.kong@kart.com.br
+  bowser1@games.info 
+  super-mario@nintendo.JP
+  TEAM.donkey-kong@MARIO.kart1.nintendo.com
+
+
+E aqui alguns exemplos do que não pegar:
+  toad@kart...com
+  wario@kart@nintendo.com
+  yoshi@nintendo
+  daisy@nintendo.b
+..@email.com
+
+Resolução:
+  ^([\w-]\.?)+@([\w-]+\.)+([A-Za-z]{2,4})+$
+
+- a regex usa âncoras no início ^ e fim $ para garantir o match inteiro;
+- antes do @, temos: ^([\w-]\.?)+
+  definimos uma classe com word-chars e hífen, seguido por um ponto opcional: [\w-]\.?
+  essa classe pode se repetir uma ou mais vezes, então criamos um grupo e + ao final: ([\w-]\.?)+
+
+- depois do @, temos:
+  ([\w-]+\.)+, que é bastante parecido com o anterior ao @, porém com o . obrigatório,
+  ([A-Za-z]{2,4})+$, que é o final da nossa regex, seleciona o domínio do email, como br, com, us. O mínimo de letras dessa parte final devem ser 2 e no máximo 4.
+
+-----------------------------------------------------------------------------------------------------
+São necessárias as informações: Nome, Rua, Número e CEP.
+As outras informações também devem ser separadas para futuros serviços dos correios, porém não precisamos capturá-las neste momento.
+    Nico Steppat|14/05/1977|Rua Buarque de Macedo|50|22222-222|Rio de Janeiro
+
+    Romulo Henrique|14/06/1993|Rua do Lins|120|12345-322|Rio de Janeiro
+
+    Leonardo Cordeiro|01/01/1995|Rua de Campo Grande|01|00001-234|Rio de Janeiro
+
+- Nome|data/de/nascimento|Rua onde mora|numero|cep|Cidade
+
+  - Nome era necessário capturar, então iremos criar um grupo ([\w\s]+)\|
+
+  - Data de nascimento não era necessário, por isso, deixaremos esse grupo como non-capturing group (?:\d\d\/\d\d\/\d\d\d\d)\|
+
+  - Rua Onde Mora é necessário capturar, e por isso, criamos um grupo normal: ([\w\s]+)\|
+
+  - Número é necessário capturar, portanto: (\d{1,4})\|
+
+  - CEP é necessário capturar, e podemos criar um grupo dessa maneira: (\d{5}-\d{3})\|
+
+  - Cidade é a nossa última análise, e não é necessária. Portanto, basta adicionarmos ?: para deixar o seu grupo não-capturável: (?:[\w\s]{10,})
+
+  ^([\w\s]+)\|(?:\d\d\/\d\d\/\d\d\d\d)\|([\w\s]+)\|(\d{1,4})\|(\d{5}-\d{3})\|(?:[\w\s]{10,})$
+
+-----------------------------------------------------------------------------------------------------
+
+Exemplo: <h1 class="text-left">Expressões regulares</h1>
+
+- se fosse pesquisado por <h1.+>, como resultado apareceria <h1 class="text-left">Expressões regulares</h1>, pois o "+" é um quantifier ganancioso, procurando até o último ">"
+
+- podemos dizer que não queremos "ganância" e sim preguiçoso ou hesitante. Isso se faz, novamente pelo caractere "?" -> <h1.+?> -> só pega <h1 class="text-left">
+
+- vamos definir o conteúdo dentro do parágrafo: <h1.+?>([\s\wõçã]+)</h1>
+
+- o \s para pegar espaços, \w word char e o õ, ç e ã refere-se aos acentos, etc
+
+*Há uma alternativa para resolver esse problema de abertura da tag. Podemos definir uma classe de caracteres que seleciona tudo que não é um >. Essa negação é feita através da meta-char "^".
+  <h1[^>]+>
+Mesmo assim foi encontrado apenas a abertura da tag (<h1 class="text-left">) pois a nossa classe de caractere não inclui o caractere ">"
+
+OBS: Todos os quantifiers são gananciosos por padrão. Isso significa que eles automaticamente selecionam o máximo de caracteres por padrão (?, +, *, {n,m}). Ao usar ? logo após o quantifier, o deixamos preguiçoso
+
+Outro exemplo: no caso da palavra alura, [a-z]+ pega toda a palavra (tendo 1 match), [a-z]+? pega um caracter por vez, tendo agora 5 matches
+
+-----------------------------------------------------------------------------------------------------
+
+Supondo que pegamos um trecho de parágrafo: <p>....</p>
+
+Essas mensagens serão lidas por uma fila de mensagens que irá ordená-las pela tag de prioridade (p1, p2, p3, etc). Precisamos criar um filtro que valide essa tag de prioridade e uma das coisas que esse filtro precisará verificar é se a tag que abre é a mesma que está sendo fechada, evitando situações como: <p1> ... </p3>
+
+As prioridades variam de 1 (menor prioridade) até 9 (maior prioridade). Qual expressão regular podemos utilizar para garantir o fechamento de uma tag de qualquer prioridade?
+
+  <(p[1-9])>.*<\/\1>
+
+- No primeiro grupo há uma tag de prioridade que pode ir de 1 até 9, por isso: <(p[1-9])>
+- Podemos ter qualquer item no meio, 0 ou mais vezes: .*
+- E por último, usamos o BackReference para garantir que a tag será fechada com a mesma tag usada na abertura, escapando a barra de fechamento da tag: <\/\1> (o 1 refere-se ao primeiro grupo - ou seja, à primeira tag, assim, a tag que fecha precisa ser a mesma que abre)

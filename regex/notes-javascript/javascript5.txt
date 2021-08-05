@@ -1,0 +1,14 @@
+O HTML5 introduziu para as tags input o atributo pattern. Ele recebe como atributo expressões regulares, inclusive, quando o formulário for submetido e o valor digitado pelo usuário não for compatível com a expressão, o próprio navegador exibirá automaticamente uma mensagem para o usuário indicando que o campo é inválido. Mas é importante que o input faça parte de um formulário, caso contrário a validação não será aplicada.
+
+Vamos fazer com que nosso input aceite apenas números:
+  <!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <title>Testando pattern</title>
+</head>
+<body>
+    <form>
+        <input pattern="[0-9]*">
+        <input type="submit" value="Enviar dados">
+    </form>
+</body>

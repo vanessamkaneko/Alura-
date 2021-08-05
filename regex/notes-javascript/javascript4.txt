@@ -1,0 +1,12 @@
+Vejamos a seguinte string:
+  var codigos = 'A121B12112C12212F12G01';
+
+A variável codigos guarda uma string com vários códigos concatenados. A lei de formação é a seguinte: todo código começa com uma letra seguida de 1 ou mais dígitos. Precisamos extrair essas string num array, ou seja, uma lista de código para que o desenvolvedor possa verificar se cada um desses códigos existe no sistema.
+Uma expressão regular que podemos usar para selecionar quem é código é a seguinte: 
+  var exp = /[A-Za-z]\d+/g
+
+E agora? Como extrair para um array quem segue esse padrão? Toda string em JavaScript possui o método match. Ele aceita uma expressão regular e retorna em um array todas as partes do alvo que atendem a expressão regular. Usando match:
+  var codigosExtraidos = codigos.match(exp);
+
+Imprimindo codigosExtraidos temos:
+  ["A121", "B12112", "C12212", "F12", "G01"]

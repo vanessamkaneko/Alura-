@@ -1,0 +1,13 @@
+Temos a seguinte string em JavaScript:
+  var anoMesDia = '2007-12-31';
+
+Nossa missão é trocar todos os hífens por uma /. String's em JavaScript são objetos e possuem métodos especiais que aceitam expressões regulares, como é o caso do método replace. Primeiro, vamos criar a expressão que encontra todos os hífens de uma string, inclusive vamos usar a forma literal de declaração:
+  var exp = /-/g
+
+Agora, podemos passar para o método replace da nossa string nossa expressão. O método replace recebe uma expressão regular como primeiro parâmetro e o segundo o novo texto que deve substituir todos os lugares que condizerem com a expressão passada. Sendo assim, temos:
+  anoMesDia = anoMesDia.replace(exp, '/');
+
+Se imprimirmos o valor de anoMesDia no console do browser, temos como resultado:
+  '2007/12/31';
+
+Perfeito! Mas cuidado, se você tivesse omitido o g da expressão, ele trocaria apenas o primeiro hífen.
