@@ -1,0 +1,30 @@
+  ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.*[!@#$%^&*_=+-]).{6,12}$
+
+^.........$ - início / fim do alvo
+
+() - determina grupos a serem analisados
+
+?= - ao estar no início, quer dizer que permitimos determinados caracteres
+
+. - todos os caracteres são permitidos (menos quebras de linha)
+
+* - qtidade de char, uma ou mais vezes
+
+[a-z] - "a" a "z" minúsculos
+
+[A-Z] - "A" a "Z" maiúsculos
+
+[0-9] - 0 a 9 permitidos
+
+?! - quer dizer que não permitimos determinados caracteres
+        - no caso, [!@#$%^&*_=+-] são os caracteres não permitidos
+
+.{6,12} - no mín 6, no máx 12 caracteres
+
+
+--------------------------------------------------------------------------------------------------
+if(input.validity.valid) - (no browser - ctrl i, seleciona um campo e escreve no consle $0.validity e dá enter) - o input tem uma propriedade chamada validity, a qual tem um objeto com vários valores, sendo um deles o valid (que pode ser true ou false)
+
+--------------------------------------------------------------------------------------------------
+mensagensDeErro - com exceção do customError (o qual foi um erro que criamos), o restante são todos que já existem no próprio browser (no browser - ctrl i, seleciona um campo e escreve no consle $0.validity e dá enter))
+
