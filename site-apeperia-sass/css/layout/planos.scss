@@ -9,7 +9,7 @@
 
 .plano {
   background: white;
-  width: 18em;
+  width: multiplica-pela-fonte(18);
   display: inline-block;
   margin: 1em 0 0 1.4em;
   padding-bottom: 2em;
@@ -61,21 +61,16 @@
   width: 210px;
   height: 38px;
   font-size: 1.2em;
- @include borda-arredondada;
- @extend %sombra-padrao;
+  @include border-radius(10px);
+  @include box-shadow(black 0px 2px 10px); //compass
   margin-left: 2em;
 }
 
-.icone-check, .icone-x {
-  background: url(../imagens/sprite.png) no-repeat;
+@include all-sprite-sprites; // all-nomeDaPastaDasImagens-sprites
+.sprite-icone-check, .sprite-icone-x {
   width: 18px;
   height: 18px;
 }
 
-.icone-check {
-  background-position: -5px -5px;
-}
 
-.icone-x {
-  background-position: -33px -5px;
-}
+//o Compass cria classes automaticamente com o nome das imagens - lembrar de alterar as classes no html se necessário - no caso, as classes ficaram como sprite-icone-ok e sprite-icone-x

@@ -14,3 +14,19 @@
   -webkit-box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
   box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
 }
+
+@function multiplica-pela-fonte($multiplicador) {
+  @return round($multiplicador * $tamanho-da-fonte-padrao);
+}
+
+//round serve para arredondar os números
+
+//////////////////
+@import "compass/css3"; //compass
+@import "compass/utilities"; //compass
+
+
+
+// Há uma técnica CSS que visa diminuir o número de requisições para o servidor. Ela junta várias imagens em uma só e a importa no CSS. Essa técnica chama-se sprite, e o compass faz isso automaticamente.
+
+// Bastar pegar as imagens, colocar numa pasta (preferenciamente chamada sprite) e dar um @import nomepasta/*.png (ou o formato que for da imagem)

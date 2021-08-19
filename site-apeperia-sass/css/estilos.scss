@@ -1,3 +1,6 @@
+$sprite-spacing: 5px; // espaçamento das imagens sprite - antes do -spacing, vem o nome da pasta, por isso é melhor que seja sprite
+@import 'sprite/*.png';
+
 @import 'helpers/variaveis';
 @import 'helpers/mixins';
 
