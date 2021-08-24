@@ -1,0 +1,36 @@
+.card-largura {
+  width: 18rem;
+}
+
+.imagem-carrosel-um {
+  object-fit: cover; /*propriedade p/ dizer como o elemento irá se comportar em relação ao pai - o cover fará com que cubra todo o espaço do container preservando sua proporção, sem esticar ou achatar*/
+  object-position: 0 80%; /*permite movimentar a img no seu eixo X e Y, respectivamente*/
+  height: 400px;
+}
+
+.imagem-carrosel-dois {
+  object-fit: cover;
+  height: 400px;
+}
+
+.fonte-titulo {
+  font-family: 'Pacifico', cursive;
+}
+
+.cor-especial {
+  color: darkred;
+}
+
+.botao-cor-especial {
+  background-color: darkred;
+  color: white;
+}
+
+.borda-cor-especial {
+  border-color: darkred;
+}
+
+.card-posicao-imagem {
+  object-fit: cover; 
+  height: 200px;
+}
