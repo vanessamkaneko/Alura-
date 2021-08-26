@@ -1,5 +1,5 @@
 .card-largura {
-  width: 18rem;
+  max-width: 18rem;
 }
 
 .imagem-carrosel-um {
@@ -18,7 +18,7 @@
 }
 
 .cor-especial {
-  color: darkred;
+  color: darkred!important; /*só foi utilizado o important pois o nosso css não estava sendo capaz de ser aplicado - o css do bootstrap estava sobreescrevendo, dessa maneira é meio que um jeito de forçar, por isso deve ser usado com cautela*/
 }
 
 .botao-cor-especial {
@@ -34,3 +34,5 @@
   object-fit: cover; 
   height: 200px;
 }
+
+/*OBS: na parte de receitas, o -fluid do container faz com que seja retirado as margens do container, fez isso p/ que a cor cinza pegasse até as laterais*/
